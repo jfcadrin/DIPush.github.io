@@ -49,17 +49,17 @@ limitations under the License.
       <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
 
-        	<div id="errorMsg"></div>
+        	<div id="errorMsg" style="color:red;"></div>
 
 			<div id="divSettings">
             <h4>Configuration</h4>
             <table>
 	            <tr>
-		            <td>Serveur</td>
+		            <td>Environment</td>
 		            <td>
 		            	<select id="ddlServer">
 		            		<option value="dev">Dev</option>
-		            		<option value="prod">Prod (pas prêt)</option>            		
+		            		<option value="prod">Prod (not ready)</option>            		
 		            	</select>
 		            </td>
 	            </tr>
@@ -348,7 +348,7 @@ limitations under the License.
 
   	if(applicationKey == null)
   	{
-  		errorMsg.append('Vous devez fournir un application key.');
+  		errorMsg.append('You must provide a key application.');
   		return;
   	}
 
@@ -387,7 +387,7 @@ limitations under the License.
             console.log(a);
               console.log(b);
               console.log(c);
-              errorMsg.append('Une erreur est survenu lors du transfert du token.');
+              errorMsg.append('An error occurred while transferring the token. Check your configuration.');
           },
           dataType: 'json'
         });    
@@ -415,8 +415,12 @@ limitations under the License.
     }
   }
 
-  function requestPermission() {
+  function requestPermission() 
+  {
     console.log('Requesting permission...');
+
+	SaveSettings();
+
     // [START request_permission]
     messaging.requestPermission()
     .then(function() {
