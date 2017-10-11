@@ -389,10 +389,7 @@ limitations under the License.
               console.log(c);
               errorMsg.append('An error occurred while transferring the token. Check your configuration.');
           },
-          dataType: 'json',
-          xhrFields: {
-	        withCredentials: true
-	    	}
+          dataType: 'json'
         });    
     } else {
       console.log('Token already sent to server so won\'t send it again ' +
