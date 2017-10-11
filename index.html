@@ -48,6 +48,56 @@ limitations under the License.
       <!-- Container for the Table of content -->
       <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+
+        	<div id="errorMsg"></div>
+
+			<div id="divSettings">
+            <h4>Configuration</h4>
+            <table>
+	            <tr>
+		            <td>Serveur</td>
+		            <td>
+		            	<select id="ddlServer">
+		            		<option value="dev">Dev</option>
+		            		<option value="prod">Prod (pas prêt)</option>            		
+		            	</select>
+		            </td>
+	            </tr>
+	            <tr>
+		            <td>Application key</td>
+		            <td>
+		            	<input type="text" id="txtApplicationKey" />
+		            </td>
+	            </tr>
+	            <tr>
+		            <td>Identification</td>
+		            <td>
+		            	<label id="lblIdentification" />
+		            	<table>
+		            		<tr>
+		            			<td>
+	            					idSendLog
+		            			</td>
+		            			<td>
+	            					<input type="text" id="txtSendLogID" />
+		            			</td>
+	            			</tr>
+	            			<tr>
+		            			<td>
+	            					SendLog key
+		            			</td>
+		            			<td>
+	            					<input type="text" id="txtSendLogKey" />
+		            			</td>
+	            			</tr>
+            			</table>
+		            </td>
+	            </tr>
+            </table>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored"
+                    onclick="SaveSettings()">Save</button>
+          </div>
+
           <!-- div to display the generated Instance ID token -->
           <div id="token_div" style="display: none;">
             <h4>Instance ID Token</h4>
@@ -202,17 +252,79 @@ limitations under the License.
             return query_string;
         }
 
+    function SaveSettings()
+    {
+    	var ddlServer = $('#ddlServer');
+    	var txtApplicationKey = $('#txtApplicationKey');
+	  	var txtSendLogID = $('#txtSendLogID');
+	  	var txtSendLogKey = $('#txtSendLogKey');
 
-  $(function(){
+    	if(txtSendLogID.val() != '' && txtSendLogKey.val() != '')
+    	{
+    		var ContactIdentifier = {"oft_id" : txtSendLogID.val(), "oft_k" : txtSendLogKey.val(), "identificationType" : "sendlog"};
+		      window.localStorage.setItem('ContactIdentifier', JSON.stringify(ContactIdentifier));
+		      window.localStorage.setItem('isContactIsIdentified', '1');
+    	}
 
-    tryIdentify();
+    	if(txtApplicationKey.val() != '')
+    	{
+    		window.localStorage.setItem('applicationKey', txtApplicationKey.val());
+    	}
+
+    	window.localStorage.setItem('ofsys_env', ddlServer.val());
+    }
+
+  $(function()
+  {
+	var isIdentify = IsIdentify();
+	if(!isIdentify)
+		tryIdentify();
+
+  	var ddlServer = $('#ddlServer');
+  	var txtApplicationKey = $('#txtApplicationKey');
+  	var lblIdentification = $('#lblIdentification');
+  	var txtSendLogID = $('#txtSendLogID');
+  	var txtSendLogKey = $('#txtSendLogKey');
+
+    if(isIdentify)
+    {
+    	var ContactIdentifier = JSON.parse(window.localStorage.getItem('ContactIdentifier'));
+
+		if (ContactIdentifier.identificationType === 'sendlog')
+		{		
+			txtSendLogID.val(ContactIdentifier.oft_id);
+			txtSendLogKey.val(ContactIdentifier.oft_k);
+		}
+    }
+
+    var serverSetting = window.localStorage.getItem('ofsys_env');
+
+    if(serverSetting != null)
+    {
+    	ddlServer.val(serverSetting);
+    }
+
+    var applicationKey = window.localStorage.getItem('applicationKey');
+
+    if(applicationKey != null)
+    {
+    	txtApplicationKey.val(applicationKey);
+    }
 
   });
 
+  function IsIdentify()
+  {
+  	var isContactIsIdentified = window.localStorage.getItem('isContactIsIdentified');
+    if(isContactIsIdentified != null && isContactIsIdentified)
+      return true;
+  	else
+  		return false;
+  }
+
   function tryIdentify()
   {
-    var isContactIsIdentified = window.localStorage.getItem('isContactIsIdentified');
-    if(isContactIsIdentified != null && isContactIsIdentified)
+    if(IsIdentify())
       return;
 
     var dic = QueryString();
@@ -228,6 +340,18 @@ limitations under the License.
   // - send messages back to this app
   // - subscribe/unsubscribe the token from topics
   function sendTokenToServer(currentToken) {
+
+	var errorMsg = $('#errorMsg'); 
+  	var applicationKey = window.localStorage.getItem('applicationKey');
+
+  	errorMsg.empty();
+
+  	if(applicationKey == null)
+  	{
+  		errorMsg.append('Vous devez fournir un application key.');
+  		return;
+  	}
+
     if (!isTokenSentToServer()) {
       console.log('Sending token to server...');
 
@@ -239,7 +363,7 @@ limitations under the License.
       }
       
       var data = {
-          "ApplicationId": "150:aPXWHerMygO5IO2PgdQ5OIV4upBzlHoE",
+          "ApplicationId": applicationKey,
           "ContactIdentifier": ContactIdentifier.oft_id + ':' + ContactIdentifier.oft_k,
           "Token": currentToken,
           "Domain": location.host,
@@ -263,6 +387,7 @@ limitations under the License.
             console.log(a);
               console.log(b);
               console.log(c);
+              errorMsg.append('Une erreur est survenu lors du transfert du token.');
           },
           dataType: 'json'
         });    
