@@ -496,6 +496,42 @@ limitations under the License.
   }
 
   resetUI();
+
+var g_window_webpush_test;
+
+window.addEventListener('message', function(e) {
+  console.log('message received');
+  console.log(e);
+
+  if(typeof event === 'undefined' || event == null)
+            return;
+
+	var objInput = event;
+
+	if(event.constructor === ''.constructor)
+	{
+	    try
+	    {
+	        objInput = JSON.parse(event);
+	    }
+	    catch(e)
+	    {
+	        return;
+	    }
+	}       
+
+	if(typeof objInput.data === 'undefined' || objInput.data == null)
+	    return;
+
+	var strData = '' + objInput.data;
+	if (strData.substr(0,3) == 'di:')
+	{
+
+	  g_window_webpush_test = e.source;
+	  g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : $('#token').text()}), '*');
+	}
+});
+
 </script>
 </body>
 </html>
