@@ -364,7 +364,7 @@ limitations under the License.
       
       var data = {
           "ApplicationId": applicationKey,
-          "ContactIdentifier": ContactIdentifier.oft_id + ':' + ContactIdentifier.oft_k,
+          "ContactIdentifier": ContactIdentifier != null ? ContactIdentifier.oft_id + ':' + ContactIdentifier.oft_k : null,
           "Token": currentToken,
           "Domain": location.host,
           "Language": (window.navigator.userLanguage || window.navigator.language).substring(0, 2)
