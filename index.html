@@ -528,7 +528,18 @@ window.addEventListener('message', function(e) {
 	{
 
 	  g_window_webpush_test = e.source;
-	  g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : $('#token').text()}), '*');
+
+	  messaging.getToken()
+	    .then(function(currentToken) {
+	      if (currentToken) {
+	        g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : currentToken}), '*');
+	      } else {
+	        g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
+	      }
+	    })
+	    .catch(function(err) {
+	      g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
+	    });
 	}
 });
 
