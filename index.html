@@ -379,6 +379,7 @@ limitations under the License.
             console.log(a);
               console.log(b);
               console.log(c);
+              //todo check if the result is success
               if(ContactIdentifier != null)
                 setTokenSentToServer(true);
           },
@@ -499,20 +500,20 @@ limitations under the License.
 
 var g_window_webpush_test;
 
-window.addEventListener('message', function(e) {
+window.addEventListener('message', function(evt) {
   console.log('message received');
-  console.log(e);
+  console.log(evt);
 
-  if(typeof event === 'undefined' || event == null)
+  if(typeof evt === 'undefined' || evt == null)
             return;
 
-	var objInput = event;
+	var objInput = evt;
 
-	if(event.constructor === ''.constructor)
+	if(evt.constructor === ''.constructor)
 	{
 	    try
 	    {
-	        objInput = JSON.parse(event);
+	        objInput = JSON.parse(evt);
 	    }
 	    catch(e)
 	    {
