@@ -60,6 +60,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 });
 
 self.addEventListener('notificationclick', function(event) {
+  console.log('close event');
   event.notification.close();
   event.waitUntil(
     clients.openWindow(event.data.url)
