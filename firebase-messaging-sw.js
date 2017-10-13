@@ -38,11 +38,21 @@ const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    image : 'https://www.dialoginsight.com/inc/uploads/2016/01/Dialog-Insight-equipe.png'
+  var notificationTitle = payload.title || 'Notification';
+  var notificationOptions = {
   };
 
+  if(payload.body)
+    notificationOptions.body = payload.body;
+  if(payload.title)
+    notificationOptions.title = payload.title;
+  if(payload.click_action)
+    notificationOptions.click_action = payload.click_action;
+  if(payload.icon)
+    notificationOptions.icon = payload.icon;
+  if(payload.image)
+    notificationOptions.image = payload.image;
+  
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
 });
