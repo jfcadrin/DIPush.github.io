@@ -498,8 +498,6 @@ limitations under the License.
 
   resetUI();
 
-var g_window_webpush_test;
-
 window.addEventListener('message', function(evt) {
   console.log('message received');
   console.log(evt);
@@ -527,19 +525,16 @@ window.addEventListener('message', function(evt) {
 	var strData = '' + objInput.data;
 	if (strData.substr(0,3) == 'di:')
 	{
-
-	  g_window_webpush_test = evt.source;
-
 	  messaging.getToken()
 	    .then(function(currentToken) {
 	      if (currentToken) {
-	        g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : currentToken}), '*');
+	        evt.source.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : currentToken}), '*');
 	      } else {
-	        g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
+	        evt.source.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
 	      }
 	    })
 	    .catch(function(err) {
-	      g_window_webpush_test.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
+	      evt.source.postMessage('di:' + JSON.stringify({'event' : 'sendtoken', 'value' : null}), '*');
 	    });
 	}
 });
