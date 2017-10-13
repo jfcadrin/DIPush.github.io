@@ -48,7 +48,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.title = payload.data.title;
   if(payload.data.click_action)
   {
-    notificationOptions.data = {options : {action : "default", url : payload.data.click_action, close : true }};
+    notificationOptions.data = {url : payload.data.click_action};
   }
   if(payload.data.icon)
     notificationOptions.icon = payload.data.icon;
@@ -57,5 +57,12 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow(event.data.url)
+  );
 });
 // [END background_handler]
