@@ -47,7 +47,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
   if(payload.data.title)
     notificationOptions.title = payload.data.title;
   if(payload.data.click_action)
-    notificationOptions.click_action = payload.data.click_action;
+  {
+    notificationOptions.data = {options : {action : "default", url : payload.data.click_action, close : true }};
+  }
   if(payload.data.icon)
     notificationOptions.icon = payload.data.icon;
   if(payload.data.image)
