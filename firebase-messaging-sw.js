@@ -42,17 +42,17 @@ messaging.setBackgroundMessageHandler(function(payload) {
   var notificationOptions = {
   };
 
-  if(payload.body)
-    notificationOptions.body = payload.body;
-  if(payload.title)
-    notificationOptions.title = payload.title;
-  if(payload.click_action)
-    notificationOptions.click_action = payload.click_action;
-  if(payload.icon)
-    notificationOptions.icon = payload.icon;
-  if(payload.image)
-    notificationOptions.image = payload.image;
-  
+  if(payload.data.body)
+    notificationOptions.body = payload.data.body;
+  if(payload.data.title)
+    notificationOptions.title = payload.data.title;
+  if(payload.data.click_action)
+    notificationOptions.click_action = payload.data.click_action;
+  if(payload.data.icon)
+    notificationOptions.icon = payload.data.icon;
+  if(payload.data.image)
+    notificationOptions.image = payload.data.image;
+
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
 });
