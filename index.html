@@ -528,7 +528,7 @@ window.addEventListener('message', function(evt) {
 	if (strData.substr(0,3) == 'di:')
 	{
 
-	  g_window_webpush_test = e.source;
+	  g_window_webpush_test = evt.source;
 
 	  messaging.getToken()
 	    .then(function(currentToken) {
