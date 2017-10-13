@@ -61,9 +61,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
 self.addEventListener('notificationclick', function(event) {
   console.log(event);
-  /*event.notification.close();
+  event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.data.url)
-  );*/
+    clients.openWindow(event.notification.data.url)
+  );
 });
 // [END background_handler]
