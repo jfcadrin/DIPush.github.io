@@ -40,8 +40,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
   // Customize notification here
   const notificationTitle = 'Background Message Title';
   const notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/firebase-logo.png'
+    image : 'https://www.dialoginsight.com/inc/uploads/2016/01/Dialog-Insight-equipe.png'
   };
 
   return self.registration.showNotification(notificationTitle,
