@@ -48,7 +48,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.title = payload.data.title;
   if(payload.data.click_action)
   {
-    notificationOptions.data = {url : payload.data.click_action};
+    if(!notificationOptions.data)
+      notificationOptions.data = {};
+    notificationOptions.data['url'] = payload.data.click_action;
   }
   if(payload.data.icon)
     notificationOptions.icon = payload.data.icon;
@@ -56,11 +58,15 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.image = payload.data.image;
   if(payload.data.action1)
   {
+    if(!notificationOptions.data)
+      notificationOptions.data = {};
     notificationOptions.actions = [];
     notificationOptions.actions.push(JSON.parse(payload.data.action1));
+    notificationOptions.data['action1_url'] = payload.data.action1_url;
     if(payload.data.action2)
     {
       notificationOptions.actions.push(JSON.parse(payload.data.action2));
+      notificationOptions.data['action2_url'] = payload.data.action2_url;
     }
   }
 
@@ -70,9 +76,16 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
 self.addEventListener('notificationclick', function(event) {
   console.log(event);
+
+  var url = event.notification.data.url;
+  if(event.action != null && event.action != '')
+  {
+    url = event.notification.data['action' + event.action + '_url'];
+  }
+
   event.notification.close();
   event.waitUntil(
-    clients.openWindow(event.notification.data.url)
+    clients.openWindow(url)
   );
 });
 // [END background_handler]
