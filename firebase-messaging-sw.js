@@ -56,17 +56,17 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.icon = payload.data.icon;
   if(payload.data.image)
     notificationOptions.image = payload.data.image;
-  if(payload.data.action1)
+  if(payload.data.action0)
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
     notificationOptions.actions = [];
-    notificationOptions.actions.push(JSON.parse(payload.data.action1));
-    notificationOptions.data['action1_url'] = payload.data.action1_url;
-    if(payload.data.action2)
+    notificationOptions.actions.push(JSON.parse(payload.data.action0));
+    notificationOptions.data['action0_url'] = payload.data.action0_url;
+    if(payload.data.action1)
     {
-      notificationOptions.actions.push(JSON.parse(payload.data.action2));
-      notificationOptions.data['action2_url'] = payload.data.action2_url;
+      notificationOptions.actions.push(JSON.parse(payload.data.action1));
+      notificationOptions.data['action1_url'] = payload.data.action1_url;
     }
   }
 
