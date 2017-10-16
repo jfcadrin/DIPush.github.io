@@ -57,10 +57,10 @@ messaging.setBackgroundMessageHandler(function(payload) {
   if(payload.data.action1)
   {
     notificationOptions.actions = [];
-    notificationOptions.actions.push(payload.data.action1);
+    notificationOptions.actions.push(JSON.parse(payload.data.action1));
     if(payload.data.action2)
     {
-      notificationOptions.actions.push(payload.data.action2);
+      notificationOptions.actions.push(JSON.parse(payload.data.action2));
     }
   }
 
