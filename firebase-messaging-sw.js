@@ -54,6 +54,15 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.icon = payload.data.icon;
   if(payload.data.image)
     notificationOptions.image = payload.data.image;
+  if(payload.data.action1)
+  {
+    notificationOptions.actions = [];
+    notificationOptions.actions.push(payload.data.action1);
+    if(payload.data.action2)
+    {
+      notificationOptions.actions.push(payload.data.action2);
+    }
+  }
 
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
