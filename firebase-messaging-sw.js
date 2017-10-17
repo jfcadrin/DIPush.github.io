@@ -59,7 +59,10 @@ messaging.setBackgroundMessageHandler(function(payload) {
   if(payload.data.Direction)
     notificationOptions.direction = payload.data.Direction;
   if(payload.data.Sound)
+  {
+    notificationOptions.silent = false;
     notificationOptions.sound = payload.data.Sound;
+  }
   if(payload.data.Action1_Title)
   {
     if(!notificationOptions.data)
