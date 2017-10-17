@@ -56,6 +56,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.icon = payload.data.Icon;
   if(payload.data.Image)
     notificationOptions.image = payload.data.Image;
+  if(payload.data.Direction)
+    notificationOptions.direction = payload.data.Direction;
   if(payload.data.Action1_Title)
   {
     if(!notificationOptions.data)
