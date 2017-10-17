@@ -56,18 +56,27 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.icon = payload.data.Icon;
   if(payload.data.Image)
     notificationOptions.image = payload.data.Image;
-  if(payload.data.action0)
+  if(payload.data.Action1_Title)
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
     notificationOptions.actions = [];
-    notificationOptions.actions.push(JSON.parse(payload.data.action0));
-    notificationOptions.data['action0_url'] = payload.data.action0_url;
-    if(payload.data.action1)
-    {
-      notificationOptions.actions.push(JSON.parse(payload.data.action1));
-      notificationOptions.data['action1_url'] = payload.data.action1_url;
-    }
+    var action1 = { action : 0, title : payload.data.Action1_Title };
+    if(payload.data.Action1_Icon)
+      action1['icon'] = payload.data.Action1_Icon;
+    notificationOptions.actions.push(action1);
+    notificationOptions.data['action0_url'] = payload.data.Action1_URL;
+  }
+  if(payload.data.Action2_Title)
+  {
+    if(!notificationOptions.data)
+      notificationOptions.data = {};
+    notificationOptions.actions = [];
+    var action2 = { action : 1, title : payload.data.Action2_Title };
+    if(payload.data.Action2_Icon)
+      action1['icon'] = payload.data.Action2_Icon;
+    notificationOptions.actions.push(action2);
+    notificationOptions.data['action1_url'] = payload.data.Action2_URL;
   }
 
   return self.registration.showNotification(notificationTitle,
