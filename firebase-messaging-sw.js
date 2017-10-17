@@ -46,11 +46,11 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.body = payload.data.Body;
   if(payload.data.Title)
     notificationOptions.title = payload.data.Title;
-  if(payload.data.Action_URLRedirection)
+  if(payload.data.URLRedirection)
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
-    notificationOptions.data['url'] = payload.data.Action_URLRedirection;
+    notificationOptions.data['url'] = payload.data.URLRedirection;
   }
   if(payload.data.Icon)
     notificationOptions.icon = payload.data.Icon;
