@@ -42,20 +42,20 @@ messaging.setBackgroundMessageHandler(function(payload) {
   var notificationOptions = {
   };
 
-  if(payload.data.body)
-    notificationOptions.body = payload.data.body;
-  if(payload.data.title)
-    notificationOptions.title = payload.data.title;
-  if(payload.data.click_action)
+  if(payload.data.Body)
+    notificationOptions.body = payload.data.Body;
+  if(payload.data.Title)
+    notificationOptions.title = payload.data.Title;
+  if(payload.data.Action_URLRedirection)
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
-    notificationOptions.data['url'] = payload.data.click_action;
+    notificationOptions.data['url'] = payload.data.Action_URLRedirection;
   }
-  if(payload.data.icon)
-    notificationOptions.icon = payload.data.icon;
-  if(payload.data.image)
-    notificationOptions.image = payload.data.image;
+  if(payload.data.Icon)
+    notificationOptions.icon = payload.data.Icon;
+  if(payload.data.Image)
+    notificationOptions.image = payload.data.Image;
   if(payload.data.action0)
   {
     if(!notificationOptions.data)
