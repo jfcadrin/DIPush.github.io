@@ -79,7 +79,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
-    notificationOptions.actions = [];
+    if(!notificationOptions.actions)
+      notificationOptions.actions = [];
     var action2 = { action : 1, title : payload.data.Action2_Title };
     if(payload.data.Action2_Icon)
       action2['icon'] = payload.data.Action2_Icon;
