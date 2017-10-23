@@ -72,7 +72,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
     if(payload.data.Action1_Icon)
       action1['icon'] = payload.data.Action1_Icon;
     notificationOptions.actions.push(action1);
-    notificationOptions.data['action0_url'] = payload.data.Action1_URL;
+    if(payload.data.Action1_URL)
+      notificationOptions.data['action0_url'] = payload.data.Action1_URL;
   }
   if(payload.data.Action2_Title)
   {
@@ -81,9 +82,10 @@ messaging.setBackgroundMessageHandler(function(payload) {
     notificationOptions.actions = [];
     var action2 = { action : 1, title : payload.data.Action2_Title };
     if(payload.data.Action2_Icon)
-      action1['icon'] = payload.data.Action2_Icon;
+      action2['icon'] = payload.data.Action2_Icon;
     notificationOptions.actions.push(action2);
-    notificationOptions.data['action1_url'] = payload.data.Action2_URL;
+    if(payload.data.Action2_URL)
+      notificationOptions.data['action1_url'] = payload.data.Action2_URL;
   }
 
   return self.registration.showNotification(notificationTitle,
