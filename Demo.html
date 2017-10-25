@@ -7,19 +7,17 @@
   <title>Demo</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="manifest" href="manifest.json">
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js"></script>
+  <script src="DI.WebPush-1.0.min.js"></script>
 </head>
 <body>
 
-<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js"></script>
-<script src="DI.Push-package-1.0.min.js"></script>
-<script>
-  
-</script>
-
-	<div>
-    	<intput type="button" value="Request permission" onclick="ofsysPush.Notification.requestPermission()" />
-  	</div>
+	<script type="text/javascript">
+		$(function(){
+			ofsysPush.Notification.requestPermission();
+		});
+	</script>	 	
 
 </body>
 </html>

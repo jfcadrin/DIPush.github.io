@@ -1,44 +1,14 @@
-// Import and configure the Firebase SDK
-// These scripts are made available when the app is served or deployed on Firebase Hosting
-// If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
-/*importScripts('/__/firebase/3.9.0/firebase-app.js');
-importScripts('/__/firebase/3.9.0/firebase-messaging.js');
-importScripts('/__/firebase/init.js');
-
-const messaging = firebase.messaging();
-*/
-/**
- * Here is is the code snippet to initialize Firebase Messaging in the Service
- * Worker when your app is not hosted on Firebase Hosting.
-**/
- // [START initialize_firebase_in_sw]
- // Give the service worker access to Firebase Messaging.
- // Note that you can only use Firebase Messaging here, other Firebase libraries
- // are not available in the service worker.
  importScripts('https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js');
  importScripts('https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js');
 
- // Initialize the Firebase app in the service worker by passing in the
- // messagingSenderId.
- firebase.initializeApp({
+firebase.initializeApp({
    'messagingSenderId': '165900517247'
  });
 
- // Retrieve an instance of Firebase Messaging so that it can handle background
- // messages.
- const messaging = firebase.messaging();
- // [END initialize_firebase_in_sw]
+const messaging = firebase.messaging();
  
-
-
-// If you would like to customize notifications that are received in the
-// background (Web app is closed or not in browser focus) then you should
-// implement this optional method.
-// [START background_handler]
 messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // Customize notification here
-  var notificationTitle = payload.data.Title || 'Notification';
+  var notificationTitle = payload.data.title || 'Notification';
   var notificationOptions = {
   };
 
@@ -72,21 +42,18 @@ messaging.setBackgroundMessageHandler(function(payload) {
     if(payload.data.Action1_Icon)
       action1['icon'] = payload.data.Action1_Icon;
     notificationOptions.actions.push(action1);
-    if(payload.data.Action1_URL)
-      notificationOptions.data['action0_url'] = payload.data.Action1_URL;
+    notificationOptions.data['action0_url'] = payload.data.Action1_URL;
   }
   if(payload.data.Action2_Title)
   {
     if(!notificationOptions.data)
       notificationOptions.data = {};
-    if(!notificationOptions.actions)
-      notificationOptions.actions = [];
+    notificationOptions.actions = [];
     var action2 = { action : 1, title : payload.data.Action2_Title };
     if(payload.data.Action2_Icon)
-      action2['icon'] = payload.data.Action2_Icon;
+      action1['icon'] = payload.data.Action2_Icon;
     notificationOptions.actions.push(action2);
-    if(payload.data.Action2_URL)
-      notificationOptions.data['action1_url'] = payload.data.Action2_URL;
+    notificationOptions.data['action1_url'] = payload.data.Action2_URL;
   }
 
   return self.registration.showNotification(notificationTitle,
@@ -107,4 +74,3 @@ self.addEventListener('notificationclick', function(event) {
     clients.openWindow(url)
   );
 });
-// [END background_handler]
