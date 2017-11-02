@@ -258,7 +258,11 @@ limitations under the License.
 
     if(Notification && Notification.permission === "granted")
     {
-      var notification = new Notification(notificationTitle, notificationOptions);
+        navigator.serviceWorker.ready.then(function(serviceWorker) 
+        {
+          return serviceWorker.showNotification(title, options);
+
+        }).catch(function(exception) { console.log(exception); });
     }
   }
 
