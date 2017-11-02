@@ -261,19 +261,19 @@ limitations under the License.
       notificationOptions["persistent"] = true;
     }
 
-    if(notificationOptions["persistent"])
-    {
+    //if(notificationOptions["persistent"])
+    //{
         navigator.serviceWorker.register('firebase-messaging-sw.js');
         navigator.serviceWorker.ready.then(function(serviceWorker) 
         {
           return serviceWorker.showNotification(notificationTitle, notificationOptions);
 
         }).catch(function(exception) { console.log(exception); });
-    }
-    else
-    {
-        var notification = new Notification(notificationTitle, notificationOptions);
-    }
+    //}
+    //else
+    //{
+        //var notification = new Notification(notificationTitle, notificationOptions);
+    //
   }
 
   function resetUI() {
