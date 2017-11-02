@@ -264,7 +264,7 @@ limitations under the License.
     //if(notificationOptions["persistent"])
     //{
         //navigator.serviceWorker.register('firebase-messaging-sw.js');
-        navigator.serviceWorker.ready.then(function(serviceWorker) 
+        navigator.serviceWorker.getRegistration('/firebase-cloud-messaging-push-scope').ready.then(function(serviceWorker) 
         {
           return serviceWorker.showNotification(notificationTitle, notificationOptions);
 
