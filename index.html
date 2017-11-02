@@ -204,7 +204,7 @@ limitations under the License.
 
   function showNotification(payload) {
 
-    if(!Notification || Notification.permission !== "granted")
+    if(!Notification || Notification.permission !== "granted" || document.hidden)
       return;
 
     var notificationTitle = payload.data.Title || 'Notification';
