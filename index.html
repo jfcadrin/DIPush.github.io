@@ -203,8 +203,13 @@ limitations under the License.
   // [END receive_message]
 
   function showNotification(payload) {
+
+    if(!Notification || Notification.permission !== "granted")
+      return;
+
     var notificationTitle = payload.data.Title || 'Notification';
     var notificationOptions = {
+      persistent : false
     };
 
     if(payload.data.Body)
@@ -256,13 +261,18 @@ limitations under the License.
       notificationOptions["persistent"] = true;
     }
 
-    if(Notification && Notification.permission === "granted")
+    if(notificationOptions["persistent"])
     {
+        navigator.serviceWorker.register('firebase-messaging-sw.js');
         navigator.serviceWorker.ready.then(function(serviceWorker) 
         {
-          return serviceWorker.showNotification(title, options);
+          return serviceWorker.showNotification(notificationTitle, notificationOptions);
 
         }).catch(function(exception) { console.log(exception); });
+    }
+    else
+    {
+        var notification = new Notification(notificationTitle, notificationOptions);
     }
   }
 
