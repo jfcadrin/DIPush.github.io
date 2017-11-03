@@ -78,3 +78,7 @@ self.addEventListener('notificationclick', function(event) {
     clients.openWindow(url)
   );
 });
+
+self.addEventListener('message', function (evt) {
+  console.log('postMessage received', evt.data);
+})
