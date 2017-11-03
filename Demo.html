@@ -13,9 +13,12 @@
 <body>
 
 	<script type="text/javascript">
-		$(function(){
-			ofsysPush.Notification.requestPermission();
-		});
+
+    ofsysPush.dom.onLoad(function () 
+    {
+      ofsysPush.Notification.requestPermission();
+    });
+    
 	</script>	 	
 
 </body>
