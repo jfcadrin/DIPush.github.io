@@ -207,73 +207,10 @@ limitations under the License.
     if(!Notification || Notification.permission !== "granted" || document.hidden)
       return;
 
-    var notificationTitle = payload.data.Title || 'Notification';
-    var notificationOptions = {
-      persistent : false
-    };
-
-    if(payload.data.Body)
-      notificationOptions.body = payload.data.Body;
-    if(payload.data.Title)
-      notificationOptions.title = payload.data.Title;
-    if(payload.data.URLRedirection)
+    navigator.serviceWorker.getRegistration('/firebase-cloud-messaging-push-scope').then(function(serviceWorker) 
     {
-      if(!notificationOptions.data)
-        notificationOptions.data = {};
-      notificationOptions.data['url'] = payload.data.URLRedirection;
-    }
-    if(payload.data.Icon)
-      notificationOptions.icon = payload.data.Icon;
-    if(payload.data.Image)
-      notificationOptions.image = payload.data.Image;
-    if(payload.data.Direction)
-      notificationOptions.direction = payload.data.Direction;
-    if(payload.data.Sound)
-    {
-      notificationOptions.silent = false;
-      notificationOptions.sound = payload.data.Sound;
-    }
-    if(payload.data.Action1_Title)
-    {
-      if(!notificationOptions.data)
-        notificationOptions.data = {};
-      notificationOptions.actions = [];
-      var action1 = { action : 0, title : payload.data.Action1_Title };
-      if(payload.data.Action1_Icon)
-        action1['icon'] = payload.data.Action1_Icon;
-      notificationOptions.actions.push(action1);
-      if(payload.data.Action1_URL)
-        notificationOptions.data['action0_url'] = payload.data.Action1_URL;
-      notificationOptions["persistent"] = true;
-    }
-    if(payload.data.Action2_Title)
-    {
-      if(!notificationOptions.data)
-        notificationOptions.data = {};
-      if(!notificationOptions.actions)
-        notificationOptions.actions = [];
-      var action2 = { action : 1, title : payload.data.Action2_Title };
-      if(payload.data.Action2_Icon)
-        action2['icon'] = payload.data.Action2_Icon;
-      notificationOptions.actions.push(action2);
-      if(payload.data.Action2_URL)
-        notificationOptions.data['action1_url'] = payload.data.Action2_URL;
-      notificationOptions["persistent"] = true;
-    }
-
-    //if(notificationOptions["persistent"])
-    //{
-        //navigator.serviceWorker.register('firebase-messaging-sw.js');
-        navigator.serviceWorker.getRegistration('/firebase-cloud-messaging-push-scope').then(function(serviceWorker) 
-        {
-          return serviceWorker.showNotification(notificationTitle, notificationOptions);
-
-        }).catch(function(exception) { console.log(exception); });
-    //}
-    //else
-    //{
-        //var notification = new Notification(notificationTitle, notificationOptions);
-    //
+        serviceWorker.active.postMessage({"showNotification" : payload }});
+    }).catch(function(exception) { console.log(exception); });
   }
 
   function resetUI() {

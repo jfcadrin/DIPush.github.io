@@ -9,6 +9,11 @@
 
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  showNotification(payload);
+});
+
+function showNotification(payload)
+{
   var notificationTitle = payload.data.Title || 'Notification';
   var notificationOptions = {
   };
@@ -62,7 +67,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 
   return self.registration.showNotification(notificationTitle,
       notificationOptions);
-});
+}
 
 self.addEventListener('notificationclick', function(event) {
   console.log(event);
@@ -81,4 +86,8 @@ self.addEventListener('notificationclick', function(event) {
 
 self.addEventListener('message', function (evt) {
   console.log('postMessage received', evt.data);
+  if(typeof evt.data.showNotification !== 'undefined')
+  {
+    showNotification(evt.data.showNotification);
+  }
 })
