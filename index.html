@@ -447,7 +447,7 @@ limitations under the License.
 
       $.ajax({
           type: "POST",
-          url: 'https://lightspeed.dev.ofsys.com/webservices/ofc4/mobile.ashx?method=WPSetToken',
+          url: 'https://' + (window.localStorage.getItem('ofsys_env') == 'dev' ? 'lightspeed.dev.ofsys.com' : 'ofsys.com') +'/webservices/ofc4/mobile.ashx?method=WPSetToken',
           data: JSON.stringify(data),
           success: function(a,b,c)
           {
