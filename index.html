@@ -209,7 +209,7 @@ limitations under the License.
 
     navigator.serviceWorker.getRegistration('/firebase-cloud-messaging-push-scope').then(function(serviceWorker) 
     {
-        serviceWorker.active.postMessage({"showNotification" : payload }});
+        serviceWorker.active.postMessage({"showNotification" : payload });
     }).catch(function(exception) { console.log(exception); });
   }
 
