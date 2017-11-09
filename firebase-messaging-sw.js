@@ -9,7 +9,7 @@
 
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  showNotification(payload);
+  return showNotification(payload);
 });
 
 function showNotification(payload)
