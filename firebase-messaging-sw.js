@@ -92,46 +92,11 @@ function showNotification(payload)
 
   function corsAjax(options)
   {
-    try
+    var headers = new Headers({"Content-Type": "text/plain"});
+    var body = options.data;
+    fetch(options.url, { mode : 'cors', method: 'POST', headers: headers, body: body}).then(function(response))
     {
-      var ajaxRequest = new XMLHttpRequest();
-      var gotStdCors = ('withCredentials' in ajaxRequest);
-      var gotXDomain = (window.XDomainRequest != null);
-    
-      if (gotXDomain && !gotStdCors)
-      {
-        // IE 8 et 9 n'implémentent pas le standard, mais ont l'extension XDomainRequest qui fait un peu la même chose 
-        var xdr = new XDomainRequest();
-        xdr.open("POST", options.url);
-        //xdr.onprogress = function () { };
-        xdr.ontimeout = function () { options.error(408, 'timeout'); };
-        xdr.onerror = function () { options.error(500, 'error'); };
-        xdr.onload = function() { options.success(xdr.responseText); }
-        setTimeout(function () { xdr.send(options.data); }, 0);
-      }
-      else
-      {
-        ajaxRequest.open('POST', options.url, true);
-        ajaxRequest.setRequestHeader("Content-type", "text/plain");
-        ajaxRequest.onreadystatechange = function()
-        {
-          //console.log('onreadystatechange',ajaxRequest.readyState);
-          if (ajaxRequest.readyState == 4 /* complete */)
-          {
-            if (ajaxRequest.status == 200)
-              options.success(ajaxRequest.responseText);
-            else
-              options.error(ajaxRequest.status, ajaxRequest.responseText);
-          }
-        };
-        ajaxRequest.send(options.data); 
-      }
-    }
-    catch (e)
-    {
-      options.error(500, 'exception ' + e);
-      if (window.console)
-        console.error(e);
+        console.log(response);
     }
   }
 
