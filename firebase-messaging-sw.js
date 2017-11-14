@@ -75,7 +75,7 @@ function showNotification(payload)
     };
 
     corsAjax({
-      "url" : 'https://lightspeed.dev.ofsys.com/webservices/ofc4/mobile.ashx?method=Mobile_TrackPushReception', 
+      "url" : 'https://lightspeed.dev.ofsys.com/webservices/ofc4/mobile.ashx?method=TrackPushReception', 
       "data" : JSON.stringify(data), 
       "success" : function(responseText)
       {
