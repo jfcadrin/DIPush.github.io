@@ -94,10 +94,10 @@ function showNotification(payload)
   {
     var headers = new Headers({"Content-Type": "text/plain"});
     var body = options.data;
-    fetch(options.url, { mode : 'cors', method: 'POST', headers: headers, body: body}).then(function(response))
+    fetch(options.url, { mode : 'cors', method: 'POST', headers: headers, body: body}).then(function(response)
     {
         console.log(response);
-    }
+    });
   }
 
 
