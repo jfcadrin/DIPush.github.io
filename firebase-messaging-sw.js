@@ -7,7 +7,7 @@
  });
 
  const messaging = firebase.messaging();
- const applicationKey = null;
+ var applicationKey = null;
  localforage.getItem('applicationKey').then(function (value) 
  {
   applicationKey = value;
