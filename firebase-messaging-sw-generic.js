@@ -7,7 +7,11 @@
  });
 
  const messaging = firebase.messaging();
- const applicationKey = localforage.getItem('applicationKey');
+ const applicationKey = null;
+ localforage.getItem('applicationKey').then(function (value) 
+ {
+  applicationKey = value;
+ });
 
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
