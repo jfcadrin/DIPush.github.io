@@ -1,12 +1,13 @@
  importScripts('https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js');
  importScripts('https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js');
+ importScripts('localForage.js');
 
  firebase.initializeApp({
    'messagingSenderId': '165900517247'
  });
 
  const messaging = firebase.messaging();
- const applicationKey = '3238:vvz7WQEc3UPHmb7gf9CzHMlbJny261Ee';
+ const applicationKey = localforage.getItem('applicationKey');
 
 messaging.setBackgroundMessageHandler(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
@@ -123,4 +124,4 @@ self.addEventListener('message', function (evt) {
   {
     showNotification(evt.data.showNotification);
   }
-})
+});
