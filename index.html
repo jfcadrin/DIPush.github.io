@@ -282,7 +282,7 @@ limitations under the License.
     	if(txtApplicationKey.val() != '')
     	{
     		window.localStorage.setItem('applicationKey', txtApplicationKey.val());
-        localforage.setItem('applicationKey', evt.data.applicationKey);
+        localforage.setItem('applicationKey', txtApplicationKey.val());
     	}
 
     	window.localStorage.setItem('ofsys_env', ddlServer.val());
