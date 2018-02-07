@@ -77,7 +77,7 @@ function showNotification(payload)
         };
 
         corsAjax({
-            "url" : 'https://lightspeed.dev.ofsys.com/webservices/ofc4/mobile.ashx?method=TrackPushReception', 
+            "url" : 'https://lightspeed.dev.ofsys.com/webservices/ofc4/push.ashx?method=TrackPushReception', 
             "data" : JSON.stringify(data)
         });
     }
