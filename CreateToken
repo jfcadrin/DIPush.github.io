@@ -1,0 +1,31 @@
+<html>
+
+
+
+<body>
+
+<script type="text/javascript">
+var data = {
+				"ContactIdentificationType": 'project',
+				"ContactIdentification": null,
+				"Fields": {f_email: "jfcadrin@dialoginsight.com"},
+				"Token": '123abc',
+				"Domain": location.host,
+				"Language": (window.navigator.userLanguage || window.navigator.language).substring(0, 2),
+				"idPlatformPush": 4
+			};
+            
+fetch('https://lightspeed.dev.ofsys.com/T/OFC4/WPT/8578/yiLLzWe8fbiOSTJfFp5F0Y6omTx3onBQ', { mode: 'cors', method: 'POST', headers: headers, body: body })
+.then(function (response)
+{
+    console.log(responseText);
+}).catch(function (err)
+{
+    console.log(status);
+    console.log(responseText);
+}); 
+
+</script>
+
+</body>
+</html>
