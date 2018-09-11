@@ -7,17 +7,17 @@
 
 <body>
 
-EMAil <input type="text" id="email" />
+Email <input type="text" id="email" /> (optionnel)
 <br>
-Token <input type="text" id="token" />
+Token <input type="text" id="token" /> *
 <br>
-Domain <input type="text" id="domain" />
+Domain <input type="text" id="domain" /> *
 <br>
-Language <input type="text" id="language" />
+Language <input type="text" id="language" /> *
 <br>
 Chrome = 4, Firefox = 8
 <br>
-Navigateur <input type="text" id="browser" value="4" />
+Navigateur <input type="text" id="browser" value="4" /> *
 <br>
 <input type="button" text="GO" id="btnGO" onclick="send()" value="GO !" />
 
@@ -48,6 +48,9 @@ function send()
 		console.log('no email');
 	}
 
+	var headers = new Headers({ "Content-Type": "text/plain" });
+	var body = JSON.stringify(data);
+	
 	fetch('https://lightspeed.dev.ofsys.com/T/OFC4/WPT/8578/yiLLzWe8fbiOSTJfFp5F0Y6omTx3onBQ', { mode: 'cors', method: 'POST', headers: headers, body: body })
 	.then(function (response)
 	{
