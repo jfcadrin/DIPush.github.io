@@ -1,5 +1,68 @@
 <html>
 
+  <div id="vpWi"></div>
+  <div id="clientX"></div>
+  
 <script type="text/javascript" src="https://t.ofsys.com/js/Journey/1/AQAAADEyMzQ1No8TAABQRnc3Q0oCAAAA/DI.Journey-min.js"></script>
 
+  <script>
+  
+    setTimeout(function()
+            {           
+                var addEvent = function (obj, evt, fn) {
+                    if (obj.addEventListener) {
+                        obj.addEventListener(evt, fn, false);
+                    }
+                    else if (obj.attachEvent) {
+                        obj.attachEvent("on" + evt, fn);
+                    }
+                };
+
+                var validateMouseOut = function(e)
+                {
+                    e = e ? e : window.event;
+                    var from = e.relatedTarget || e.toElement;
+
+                    // If this is an autocomplete element.
+			        if(e.target.tagName.toLowerCase() == "input")
+				        return;
+
+			        // Get the current viewport width.
+			        var vpWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+                  document.getElementById("vpWi").innerHTML = vpWidth;
+                 document.getElementById("clientX").innerHTML = e.clientX;
+                  
+			        // If the current mouse X position is within 50px of the right edge
+			        // of the viewport, return.
+			        if(e.clientX >= (vpWidth - 50))
+				        return;
+
+			        // If the current mouse Y position is not within 50px of the top
+			        // edge of the viewport, return.
+			        if(e.clientY >= 50)
+				        return;
+
+                    if (!from || from.nodeName == "HTML") 
+                    {
+                        if(DI.Journey.CurrentInterceptor == null)
+                        {   
+                            if (this.removeEventListener) 
+                            {
+                                this.removeEventListener("mouseout", validateMouseOut);
+                            } else if (this.detachEvent) 
+                            {
+                                this.detachEvent("onmouseout", validateMouseOut);
+                            }
+
+                            
+                        }
+                    }
+                };
+
+                addEvent(document, 'mouseout', validateMouseOut);
+            }, 0);
+    
+  </script>
+  
 </html>
