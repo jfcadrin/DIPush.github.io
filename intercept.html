@@ -43,21 +43,6 @@ test
 			        if(e.clientY >= 50)
 				        return;
 
-                    if (!from || from.nodeName == "HTML") 
-                    {
-                        if(DI.Journey.CurrentInterceptor == null)
-                        {   
-                            if (this.removeEventListener) 
-                            {
-                                this.removeEventListener("mouseout", validateMouseOut);
-                            } else if (this.detachEvent) 
-                            {
-                                this.detachEvent("onmouseout", validateMouseOut);
-                            }
-
-                            
-                        }
-                    }
                 };
 
                 addEvent(document, 'mouseout', validateMouseOut);
